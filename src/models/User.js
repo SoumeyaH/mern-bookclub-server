@@ -1,4 +1,7 @@
 const { Schema, model } = require("mongoose");
+const { isEmail } = require("validator");
+
+const { hashPassword, loginUser } = require("../utils/userRelated");
 
 const schema = {
   username: {
@@ -7,7 +10,7 @@ const schema = {
     unique: true,
     lowercase: true,
     immutable: true,
-    minLength: [5, "Minimum username length is 5 characters."],
+    minLength: [4, "Minimum username length is 5 characters."],
   },
   email: {
     type: String,
@@ -27,6 +30,10 @@ const schema = {
 const userSchema = new Schema(schema, {
   timestamps: true,
 });
+
+userSchema.pre("save", hashPassword);
+
+userSchema.statics.login = loginUser;
 
 const User = new model("User", userSchema);
 
