@@ -1,9 +1,13 @@
 const { Router } = require("express");
 
-const { deleteUser } = require("../controllers");
+const { findUser, deleteUser, createBookClub } = require("../controllers");
 
 const router = Router();
 
-router.delete("/api/user/:id", deleteUser);
+router.get("/api/find-user/:username", findUser);
 
-module.exports = router;
+router.post("/api/create-book-club", createBookClub);
+
+router.delete("/api/user/:id", deleteUser)
+
+module.exports = router; 

@@ -46,6 +46,27 @@ const login = async (req, res) => {
   }
 };
 
+const findUser = async (req, res) => {
+
+  const { username } = req.params
+
+  // todo move to front end
+  const partialUsername = username.replaceAll('+', ' ')
+
+    try {
+      const data = await User.find({ username: { $regex: partialUsername } })
+
+      if (data.length === 0) return res.status(200).json({ error: "No match" });
+
+      if (data) return res.status(200).json({success: data});
+      
+    } catch (err) {
+      console.log("ERROR MESSAGE:", err.message)
+      console.log(err)
+      res.status(400).json({ error: err.message });
+    }
+}
+
 const deleteUser = async (req, res) => {
   const { id } = req.params;
 
@@ -62,5 +83,6 @@ const deleteUser = async (req, res) => {
 module.exports = {
   signup,
   login,
-  deleteUser,
+  findUser,
+  deleteUser
 };
