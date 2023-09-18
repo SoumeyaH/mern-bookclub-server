@@ -1,6 +1,13 @@
 const { Schema, model } = require("mongoose");
 
 const schema = {
+  userId: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
+  ],
     title: {
         type: String,
         required: true,

@@ -28,8 +28,10 @@ const getSingleUsersBookClubs = async (req, res) => {
   try {
     const data = await BookClub.find({ members: id });
 
+    // todo change from error to unsucceful or something
     if (data.length === 0) return res.status(200).json({ error: "No match" });
-
+    
+    // todo limit data to 5 
     if (data) return res.status(200).json({success: data});
 
   } catch (err) {
@@ -45,7 +47,7 @@ const deleteBookClub = async (req, res) => {
 
   try {
     await BookClub.findByIdAndDelete(id);  
-    res.status(200).json({ message: "Successfully deleted book club" });
+    res.status(200).json({ success: "Successfully deleted book club" });
 
   } catch (err) {
     console.log("ERROR MESSAGE:", err.message)
