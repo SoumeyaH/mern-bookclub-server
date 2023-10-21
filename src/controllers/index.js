@@ -1,5 +1,5 @@
 const { signup, login, findUser, deleteUser } = require("./user");
-const { createBookClub, getSingleUsersBookClubs, deleteBookClub } = require("./bookclub")
+const { createBookClub, getSingleUsersBookClubs, findBookClub, deleteBookClub } = require("./bookclub")
 const { createBookList , getSingleUsersBookLists, deleteBookList} = require("./booklist")
 
 module.exports = {
@@ -12,5 +12,6 @@ module.exports = {
   deleteBookClub,
   createBookList,
   getSingleUsersBookLists,
+  findBookClub,
   deleteBookList
 };

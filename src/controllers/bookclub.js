@@ -28,10 +28,8 @@ const getSingleUsersBookClubs = async (req, res) => {
   try {
     const data = await BookClub.find({ members: id });
 
-    // todo change from error to unsucceful or something
-    if (data.length === 0) return res.status(200).json({ error: "No match" });
+    if (data.length === 0) return res.status(200).json({ unsuccessful: "No match" });
     
-    // todo limit data to 5 
     if (data) return res.status(200).json({success: data});
 
   } catch (err) {
@@ -41,6 +39,26 @@ const getSingleUsersBookClubs = async (req, res) => {
   }
 
 }
+
+const findBookClub = async (req, res) => {
+  const { title } = req.params
+
+  const partialTitle = title.replaceAll('+', ' ')
+
+  try {
+    
+    data = await BookClub.find({ title: { $regex: partialTitle } });
+
+    if (data.length === 0) return res.status(200).json({ unsuccessful: "No match" });
+
+    if (data) return res.status(200).json({success: data});
+    
+  } catch (err) {
+    console.log("ERROR MESSAGE:", err.message)
+    console.log(err)
+    res.status(400).json({ message: err.message });
+  }
+};
 
 const deleteBookClub = async (req, res) => {
   const { id } = req.params
@@ -59,5 +77,6 @@ const deleteBookClub = async (req, res) => {
 module.exports = {
   createBookClub,
   getSingleUsersBookClubs,
+  findBookClub,
   deleteBookClub
 } 

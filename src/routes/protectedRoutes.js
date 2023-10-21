@@ -5,6 +5,7 @@ const {
     deleteUser, 
     createBookClub, 
     getSingleUsersBookClubs, 
+    findBookClub,
     deleteBookClub,
     createBookList,
     getSingleUsersBookLists,
@@ -15,6 +16,7 @@ const router = Router();
 router.get("/api/find-user/:username", findUser)
 router.get("/api/find-user-book-clubs/:id", getSingleUsersBookClubs)
 router.get("/api/find-user-book-lists/:id", getSingleUsersBookLists)
+router.get("/api/find-book-club/:title", findBookClub);
 
 router.post("/api/create-book-club", createBookClub)
 router.post("/api/create-book-list", createBookList)
