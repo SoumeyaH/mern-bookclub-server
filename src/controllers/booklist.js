@@ -41,6 +41,26 @@ const createBookList = async (req, res) => {
   
   }
 
+  const findBookList = async (req, res) => {
+    const { title } = req.params
+  
+    const partialTitle = title.replaceAll('+', ' ')
+  
+    try {
+      
+      data = await BookList.find({ title: { $regex: partialTitle } });
+  
+      if (data.length === 0) return res.status(200).json({ unsuccessful: "No match" });
+  
+      if (data) return res.status(200).json({success: data});
+      
+    } catch (err) {
+      console.log("ERROR MESSAGE:", err.message)
+      console.log(err)
+      res.status(400).json({ message: err.message });
+    }
+  };
+
   const deleteBookList = async (req, res) => {
     const { id } = req.params
   
@@ -60,5 +80,6 @@ const createBookList = async (req, res) => {
   module.exports = {
     createBookList,
     getSingleUsersBookLists,
+    findBookList,
     deleteBookList,
   }
